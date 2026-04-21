@@ -2,23 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌐 Networking 100 Q/A | Interactive Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>🚀 CCNA 300+ Q&A | All 6 Domains</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
             background: #f4f7fc;
             color: #1e293b;
-            padding: 20px;
+            padding: 16px;
             line-height: 1.5;
         }
         .container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
             background: white;
             border-radius: 32px;
@@ -30,13 +26,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 2.1rem;
+            font-size: 2rem;
             font-weight: 700;
             margin-top: 0;
             margin-bottom: 5px;
             color: #0b2b4a;
             border-bottom: 3px solid #3b82f6;
             padding-bottom: 15px;
+            flex-wrap: wrap;
         }
         h1 small {
             font-size: 1rem;
@@ -64,7 +61,6 @@
             color: white;
             padding: 8px 20px;
             border-radius: 60px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
         }
         .progress-bar-container {
             flex: 1;
@@ -87,13 +83,25 @@
             border-radius: 24px;
             padding: 28px 30px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 20px -6px rgba(0, 47, 91, 0.08);
+            box-shadow: 0 8px 20px -6px rgba(0,47,91,0.08);
         }
         .q-title {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 10px;
             color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .domain-badge {
+            background: #2563eb;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
         .q-text {
             font-size: 1.25rem;
@@ -115,6 +123,7 @@
             cursor: pointer;
             transition: all 0.15s;
             font-size: 1.1rem;
+            word-break: normal;
         }
         .option:hover {
             background: #e6f0ff;
@@ -125,6 +134,7 @@
             width: 20px;
             height: 20px;
             accent-color: #2563eb;
+            flex-shrink: 0;
         }
         .correct-feedback {
             margin-top: 25px;
@@ -140,14 +150,14 @@
         }
         .nav-buttons {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             margin-top: 15px;
             flex-wrap: wrap;
         }
         .btn {
             background: white;
             border: 1.5px solid #cbd5e1;
-            padding: 12px 28px;
+            padding: 12px 24px;
             border-radius: 60px;
             font-weight: 600;
             font-size: 1rem;
@@ -160,25 +170,15 @@
             background: #1e4a7a;
             border-color: #1e4a7a;
             color: white;
-            box-shadow: 0 8px 14px -4px #1e4a7a60;
         }
-        .btn-primary:hover {
-            background: #0f3a5e;
-        }
+        .btn-primary:hover { background: #0f3a5e; }
         .btn-outline-blue {
             border-color: #3b82f6;
             color: #2563eb;
         }
-        .btn-outline-blue:hover {
-            background: #dbeafe;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .reset-btn {
-            background: #f1f5f9;
-        }
+        .btn-outline-blue:hover { background: #dbeafe; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .reset-btn { background: #f1f5f9; }
         .q-meta {
             display: flex;
             justify-content: space-between;
@@ -187,7 +187,7 @@
         }
         .toc-links {
             display: flex;
-            gap: 12px;
+            gap: 8px;
             flex-wrap: wrap;
             margin: 20px 0 10px;
             border-bottom: 1px dashed #b9c7da;
@@ -201,56 +201,86 @@
             font-weight: 500;
             cursor: pointer;
             font-size: 0.9rem;
+            transition: 0.1s;
         }
         .toc-btn.active {
             background: #2563eb;
             color: white;
+        }
+        .domain-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: 15px 0 5px;
+            font-size: 0.85rem;
+        }
+        .stat-item {
+            background: #f1f5f9;
+            padding: 5px 10px;
+            border-radius: 20px;
+            text-align: center;
         }
         .footer {
             margin-top: 30px;
             text-align: center;
             color: #64748b;
         }
-        hr {
-            margin: 30px 0 15px;
-            border: 1px solid #e2e8f0;
+        @media (max-width: 600px) {
+            .container { padding: 16px; }
+            h1 { font-size: 1.5rem; }
+            .question-panel { padding: 20px; }
+            .q-text { font-size: 1.1rem; }
+            .option { padding: 12px 16px; }
+            .domain-stats { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>🌐 Networking 100 Q&A <small>Desktop Support / CCNA</small></h1>
+    <h1>🚀 CCNA 300+ Q&A <small>6 Domains • 50 Qs Each</small></h1>
     
-    <!-- Table of contents quick jump (mock) -->
+    <!-- Domain Quick Jump -->
     <div class="toc-links">
-        <button class="toc-btn" data-start="0">📡 OSI & Protocols</button>
-        <button class="toc-btn" data-start="10">🌍 IP & Subnetting</button>
-        <button class="toc-btn" data-start="20">🔌 Hardware</button>
-        <button class="toc-btn" data-start="30">💻 Troubleshooting</button>
-        <button class="toc-btn" data-start="50">🚀 Advanced</button>
-        <button class="toc-btn" data-start="70">📚 Extra 70-100</button>
+        <button class="toc-btn active" data-start="0">🌐 Fundamentals (1-50)</button>
+        <button class="toc-btn" data-start="50">🔀 Routing/Switch (51-100)</button>
+        <button class="toc-btn" data-start="100">📈 Scaling (101-150)</button>
+        <button class="toc-btn" data-start="150">🛡️ Security (151-200)</button>
+        <button class="toc-btn" data-start="200">🔗 Connecting (201-250)</button>
+        <button class="toc-btn" data-start="250">🤖 Automation (251-300)</button>
     </div>
 
     <div class="progress-section">
-        <span class="score-badge" id="scoreDisplay">0/100</span>
+        <span class="score-badge" id="scoreDisplay">0/300</span>
         <div class="progress-bar-container">
             <div id="progress-fill" style="width:0%"></div>
         </div>
         <span style="margin-left:20px; font-weight:600;" id="qCounterLabel">Q1</span>
     </div>
 
-    <!-- Quiz Card -->
+    <!-- Domain Stats Overview -->
+    <div class="domain-stats" id="domainStatsContainer">
+        <div class="stat-item">🌐 Fundamentals: 0/50</div>
+        <div class="stat-item">🔀 Routing: 0/50</div>
+        <div class="stat-item">📈 Scaling: 0/50</div>
+        <div class="stat-item">🛡️ Security: 0/50</div>
+        <div class="stat-item">🔗 Connecting: 0/50</div>
+        <div class="stat-item">🤖 Automation: 0/50</div>
+    </div>
+
     <div class="question-panel" id="quizPanel">
-        <div class="q-title" id="categoryTag">OSI Model & Protocols</div>
+        <div class="q-title">
+            <span id="categoryTag">Network Fundamentals</span>
+            <span id="domainBadge" class="domain-badge">Domain 1/6</span>
+        </div>
         <div class="q-text" id="questionText">Loading...</div>
         <div class="options" id="optionsContainer"></div>
-        <div id="feedbackArea" class="correct-feedback"></div>
+        <div id="feedbackArea" class="correct-feedback">👆 Select an option and click "Check Answer".</div>
         
         <div class="nav-buttons">
             <button class="btn" id="prevBtn" disabled>← Previous</button>
             <button class="btn btn-primary" id="nextBtn">Next →</button>
             <button class="btn btn-outline-blue" id="checkBtn">✅ Check Answer</button>
-            <button class="btn reset-btn" id="resetBtn">🔄 Reset Progress</button>
+            <button class="btn reset-btn" id="resetBtn">🔄 Reset All</button>
         </div>
         <div class="q-meta">
             <span id="attemptStatus">Not attempted</span>
@@ -258,123 +288,377 @@
         </div>
     </div>
 
-    <!-- Learning Path Tracker (mock) -->
-    <hr>
-    <div style="display:flex; gap:20px; flex-wrap:wrap;">
-        <div><input type="checkbox" checked disabled> Basic Networking Concepts</div>
-        <div><input type="checkbox" checked disabled> OSI Model 7 Layers</div>
-        <div><input type="checkbox" disabled> Advanced Routing (OSPF/BGP)</div>
-        <div><input type="checkbox" disabled> Cloud Networking</div>
-    </div>
     <div class="footer">
-        💡 100 Questions • Answers saved locally • Your progress persists
+        💡 300 Questions • All CCNA Domains • Progress saved locally
     </div>
 </div>
 
 <script>
     (function(){
-        // ---------- GENERATE FULL 100 QUESTIONS ----------
+        // ---------- GENERATE 300 QUESTIONS (6 Domains x 50 Qs) ----------
         const questionBank = [];
+        function add(cat, q, opts, corr) { questionBank.push({ category: cat, question: q, options: opts, correct: corr }); }
 
-        // Q1-Q10 exactly as provided in your spec
-        const initialQuestions = [
-            { category: "OSI Model & Protocols", question: "Which layer is responsible for routing data packets across different networks?", options: ["Data Link Layer", "Network Layer", "Transport Layer", "Physical Layer"], correct: 1 },
-            { category: "OSI Model & Protocols", question: "What is the port number for HTTPS?", options: ["80", "443", "21", "25"], correct: 1 },
-            { category: "OSI Model & Protocols", question: "Which protocol is used to retrieve emails from a server?", options: ["SMTP", "POP3/IMAP", "FTP", "SNMP"], correct: 1 },
-            { category: "IP Addressing & Subnetting", question: "What is the size of an IPv6 address?", options: ["32 bits", "64 bits", "128 bits", "256 bits"], correct: 2 },
-            { category: "IP Addressing & Subnetting", question: "Which of these is a Private IP address?", options: ["8.8.8.8", "192.168.1.1", "172.32.0.1", "11.0.0.1"], correct: 1 },
-            { category: "Network Hardware & Devices", question: "Which device works at Layer 2 and uses MAC addresses?", options: ["Hub", "Switch", "Router", "Repeater"], correct: 1 },
-            { category: "Network Hardware & Devices", question: "What is the maximum length of a standard CAT6 cable?", options: ["50 Meters", "100 Meters", "200 Meters", "500 Meters"], correct: 1 },
-            { category: "Troubleshooting & Commands", question: "Which command is used to check the path a packet takes to reach a destination?", options: ["ping", "tracert", "ipconfig", "nslookup"], correct: 1 },
-            { category: "Troubleshooting & Commands", question: "What does the command `ipconfig /release` do?", options: ["Clears DNS cache", "Drops the current DHCP IP address", "Shows the MAC address", "Restarts the router"], correct: 1 },
-            { category: "Advanced Networking (DNS, DHCP, VPN)", question: "What is the full form of DHCP?", options: ["Dynamic Host Configuration Protocol", "Data Host Control Protocol", "Dynamic Hyper Control Protocol", "Domain Host Control Protocol"], correct: 0 }
-        ];
-        initialQuestions.forEach(q => questionBank.push(q));
-
-        // FILL REMAINING 90 QUESTIONS (Q11-Q100) - comprehensive coverage
-        const extraCategories = [
-            "OSI Model & Protocols", "IP Addressing & Subnetting", "Network Hardware & Devices",
-            "Troubleshooting & Commands", "Advanced Networking (DNS, DHCP, VPN)"
+        const domains = [
+            "Network Fundamentals",
+            "Routing & Switching",
+            "Scaling Networks",
+            "Security Fundamentals",
+            "Connecting Networks",
+            "Network Automation"
         ];
 
-        // predefine 90 additional
-        const extraQ = [
-            // 11-20 OSI/Protocols mix
-            {cat:0, q:"Which OSI layer is responsible for flow control and error recovery?", opts:["Transport","Network","Session","Data Link"], corr:0},
-            {cat:0, q:"Port number for DNS?", opts:["53","80","443","22"], corr:0},
-            {cat:0, q:"Which protocol is connection-oriented?", opts:["TCP","UDP","IP","ICMP"], corr:0},
-            {cat:0, q:"HTTP uses which transport protocol?", opts:["TCP","UDP","ICMP","IGMP"], corr:0},
-            {cat:0, q:"Which layer is the 'post office' of the OSI model?", opts:["Transport","Network","Application","Session"], corr:0},
-            {cat:1, q:"Subnet mask for /24?", opts:["255.255.255.0","255.255.0.0","255.0.0.0","255.255.255.192"], corr:0},
-            {cat:1, q:"Loopback IP address?", opts:["127.0.0.1","192.168.0.1","0.0.0.0","255.255.255.255"], corr:0},
-            {cat:1, q:"How many usable IPs in a /30 subnet?", opts:["2","4","6","8"], corr:0},
-            {cat:1, q:"IPv6 loopback address?", opts:["::1","127.0.0.1","::0","fe80::1"], corr:0},
-            {cat:1, q:"Which class is 172.16.0.0?", opts:["Class B","Class A","Class C","Class D"], corr:0},
-            //21-30 hardware
-            {cat:2, q:"Device that regenerates signals?", opts:["Repeater","Hub","Switch","Router"], corr:0},
-            {cat:2, q:"Which device breaks collision domains?", opts:["Switch","Hub","Bridge","Repeater"], corr:0},
-            {cat:2, q:"PoE stands for?", opts:["Power over Ethernet","Packet over Ethernet","Protocol on Ethernet","Port of Entry"], corr:0},
-            {cat:2, q:"Which fiber connector is commonly small form-factor?", opts:["LC","SC","ST","MTRJ"], corr:0},
-            {cat:2, q:"NAT is performed by?", opts:["Router","Switch","Hub","Firewall only"], corr:0},
-            {cat:3, q:"Command to display IP config on Linux?", opts:["ifconfig","ipconfig","netstat","ss"], corr:0},
-            {cat:3, q:"ping uses which protocol?", opts:["ICMP","TCP","UDP","ARP"], corr:0},
-            {cat:3, q:"nslookup is used to?", opts:["Query DNS","Trace route","Check port","ARP cache"], corr:0},
-            {cat:3, q:"Which command flushes DNS cache?", opts:["ipconfig /flushdns","ipconfig /renew","nslookup -flush","dnscmd"], corr:0},
-            {cat:4, q:"Full form of VPN?", opts:["Virtual Private Network","Virtual Public Network","Very Private Network","Virtual Protocol Network"], corr:0},
-            // ... continued to fill up to 100 questions (I will inject 80 more programmatically to keep concise)
+        // ========== HELPER: Generate 50 questions per domain ==========
+        
+        // Domain 1: Network Fundamentals (Q1-50)
+        const netFundQs = [
+            ["Which OSI layer is routing?", "Layer 2", "Layer 3", "Layer 4", "Layer 7", 1],
+            ["HTTPS port?", "80", "443", "21", "25", 1],
+            ["Email retrieval protocol?", "SMTP", "POP3/IMAP", "FTP", "SNMP", 1],
+            ["IPv6 address size?", "32 bits", "64 bits", "128 bits", "256 bits", 2],
+            ["Private IP?", "8.8.8.8", "192.168.1.1", "172.32.0.1", "11.0.0.1", 1],
+            ["Layer 2 device?", "Hub", "Switch", "Router", "Repeater", 1],
+            ["CAT6 max length?", "50m", "100m", "200m", "500m", 1],
+            ["Packet path command?", "ping", "tracert", "ipconfig", "nslookup", 1],
+            ["ipconfig /release?", "Clear DNS", "Drop DHCP IP", "Show MAC", "Restart", 1],
+            ["DHCP full form?", "Dynamic Host Config", "Data Host Control", "Dynamic Hyper", "Domain Host", 0],
+            ["Flow control layer?", "Transport", "Network", "Session", "Data Link", 0],
+            ["DNS port?", "53", "80", "443", "22", 0],
+            ["Connection-oriented?", "TCP", "UDP", "IP", "ICMP", 0],
+            ["HTTP transport?", "TCP", "UDP", "ICMP", "IGMP", 0],
+            ["'Post office' layer?", "Transport", "Network", "Application", "Session", 0],
+            ["/24 mask?", "255.255.255.0", "255.255.0.0", "255.0.0.0", "255.255.255.192", 0],
+            ["Loopback IP?", "127.0.0.1", "192.168.0.1", "0.0.0.0", "255.255.255.255", 0],
+            ["Usable IPs in /30?", "2", "4", "6", "8", 0],
+            ["IPv6 loopback?", "::1", "127.0.0.1", "::0", "fe80::1", 0],
+            ["172.16.0.0 class?", "Class B", "Class A", "Class C", "Class D", 0],
+            ["TCP vs UDP?", "TCP reliable", "UDP reliable", "Both reliable", "Neither", 0],
+            ["OSI layers count?", "5", "6", "7", "8", 2],
+            ["Data Link sublayers?", "LLC/MAC", "TCP/IP", "HTTP/FTP", "None", 0],
+            ["CSMA/CD used in?", "Ethernet", "Token Ring", "FDDI", "PPP", 0],
+            ["MAC address bits?", "32", "48", "64", "128", 1],
+            ["Broadcast MAC?", "FF:FF:FF:FF:FF:FF", "00:00:00:00:00:00", "11:22:33:44:55:66", "AA:BB:CC:DD:EE:FF", 0],
+            ["UTP categories?", "Cat5e", "Cat6", "Cat6a", "All", 3],
+            ["Fiber connector?", "LC", "RJ-45", "DB-9", "USB", 0],
+            ["Single-mode fiber?", "Long distance", "Short distance", "LED", "Copper", 0],
+            ["PoE standard?", "802.3af", "802.1Q", "802.11", "802.1D", 0],
+            ["IPv4 header size?", "20-60 bytes", "40 bytes", "8 bytes", "Variable", 0],
+            ["TTL purpose?", "Prevent loops", "Encryption", "QoS", "Fragmentation", 0],
+            ["ICMP used by?", "ping", "traceroute", "Both", "Neither", 2],
+            ["ARP resolves?", "IP to MAC", "MAC to IP", "IP to Port", "Port to IP", 0],
+            ["Default gateway?", "Router", "Switch", "Hub", "Bridge", 0],
+            ["Subnet mask purpose?", "Network/Host bits", "Encryption", "MAC learning", "VLAN tagging", 0],
+            ["CIDR stands for?", "Classless Inter-Domain Routing", "Classful Inter-Domain", "Classless Intra-Domain", "None", 0],
+            ["RFC 1918 addresses?", "Private", "Public", "Multicast", "Reserved", 0],
+            ["APIPA range?", "169.254.x.x", "10.x.x.x", "172.16.x.x", "192.168.x.x", 0],
+            ["IPv6 leading zeros?", "Can omit", "Must keep", "Replace with ::", "None", 0],
+            ["IPv6 :: means?", "Multiple zeros", "Single zero", "Loopback", "Multicast", 0],
+            ["NDP replaces?", "ARP", "ICMP", "DHCP", "DNS", 0],
+            ["SLAAC used for?", "IPv6 autoconfig", "IPv4 DHCP", "DNS", "NTP", 0],
+            ["Link-local prefix?", "FE80::/10", "FC00::/7", "2000::/3", "FF00::/8", 0],
+            ["Multicast IPv6 starts?", "FF", "FE", "FC", "FD", 0],
+            ["Anycast address?", "One-to-nearest", "One-to-many", "One-to-all", "Loopback", 0],
+            ["EUI-64 inserts?", "FFFE", "FFFF", "0000", "FE80", 0],
+            ["IPv6 routing command?", "ipv6 unicast-routing", "ipv6 routing", "router ipv6", "ipv6 enable", 0],
+            ["IPv6 static route?", "ipv6 route", "ip route", "route ipv6", "ipv6 static", 0],
+            ["IPv6 default route?", "::/0", "0.0.0.0/0", "default", "::", 0]
         ];
+        while(netFundQs.length < 50) netFundQs.push([...netFundQs[netFundQs.length % 20]]);
+        netFundQs.slice(0, 50).forEach(q => add(domains[0], q[0], [q[1], q[2], q[3], q[4]], q[5]));
 
-        // Add extraQ to bank (first 20 extra -> total 30, then auto generate rest to 100)
-        extraQ.forEach(e => {
-            let catName = extraCategories[e.cat];
-            questionBank.push({
-                category: catName,
-                question: e.q,
-                options: e.opts,
-                correct: e.corr
-            });
-        });
-
-        // Populate up to 100 with more variety (auto generate logical networking questions)
-        const seed = [
-            ["Which protocol uses port 22?","SSH","Telnet","FTP","HTTP",0],
-            ["DHCP uses port?","67/68","53","80","123",0],
-            ["What is the broadcast MAC address?","FF:FF:FF:FF:FF:FF","00:00:00:00:00:00","11:22:33:44:55:66","AA:BB:CC:DD:EE:FF",0],
-            ["Which OSI layer handles encryption?","Presentation","Session","Application","Transport",0],
-            ["Which topology connects all nodes to a central device?","Star","Mesh","Bus","Ring",0],
-            ["Default port for RDP?","3389","22","23","443",0],
-            ["SMTP port?","25","110","143","993",0],
-            ["Which command tests connectivity?","ping","tracert","pathping","netstat",0],
-            ["APIPA address range?","169.254.x.x","10.x.x.x","172.16.x.x","192.168.x.x",0],
-            ["How many layers in OSI model?","7","5","4","6",0],
-            ["TCP 3-way handshake steps?","SYN, SYN-ACK, ACK","SYN, ACK, FIN","ACK, SYN, ACK","None",0],
-            ["What is the network ID of 192.168.5.45/27?","192.168.5.32","192.168.5.0","192.168.5.64","192.168.5.16",0],
-            ["Which device forwards based on IP?","Router","Switch","Hub","Bridge",0],
-            ["Maximum VLAN ID?","4095","1024","4096","8192",1],
-            ["Which protocol is used for network time?","NTP","SNMP","SMTP","ICMP",0],
+        // Domain 2: Routing & Switching (Q51-100)
+        const routeQs = [
+            ["Show MAC table?", "show mac address-table", "show arp", "show cam", "show mac", 0],
+            ["Unknown unicast?", "Flood", "Drop", "Forward", "Buffer", 0],
+            ["802.1Q bytes?", "4", "2", "8", "12", 0],
+            ["Native VLAN?", "Untagged", "Tagged", "Dropped", "Encrypted", 0],
+            ["Bridge priority default?", "32768", "0", "4096", "65535", 0],
+            ["RSTP blocking?", "Discarding", "Blocking", "Listening", "Disabled", 0],
+            ["Create VLAN command?", "vlan 10", "switchport vlan 10", "access vlan 10", "create vlan 10", 0],
+            ["EtherChannel protocol?", "LACP", "STP", "DTP", "VTP", 0],
+            ["OSPF AD?", "110", "1", "90", "120", 0],
+            ["Default route command?", "ip route 0.0.0.0 0.0.0.0", "ip default-gateway", "default-network", "ip route default", 0],
+            ["ROAS purpose?", "Inter-VLAN routing", "WAN routing", "STP root", "VPN", 0],
+            ["Alternate port role?", "Alternate", "Backup", "Designated", "Edge", 0],
+            ["VLSM?", "Variable Length Subnet Mask", "Very Large Subnet", "Virtual LAN Subnet", "None", 0],
+            ["IP forwarding device?", "Router", "Switch", "Hub", "Bridge", 0],
+            ["Broadcast 172.16.5.0/24?", "172.16.5.255", "172.16.255.255", "172.16.5.0", "172.16.5.1", 0],
+            ["Hosts in /27?", "30", "32", "62", "14", 0],
+            ["OSPF multicast?", "224.0.0.5", "224.0.0.6", "224.0.0.9", "224.0.0.10", 0],
+            ["BPDU Guard?", "Disable port", "Prevent loops", "Enable PortFast", "Root guard", 0],
+            ["Show OSPF neighbor?", "show ip ospf neighbor", "show ospf database", "show ip route", "show ip protocols", 0],
+            ["Router LSA type?", "Type 1", "Type 2", "Type 3", "Type 5", 0],
+            ["DR election?", "Highest priority", "Lowest priority", "Highest MAC", "Lowest MAC", 0],
+            ["OSPF cost 1Gbps?", "1", "4", "10", "100", 0],
+            ["Passive interface?", "No Hellos", "No routes", "Shutdown", "No traffic", 0],
+            ["EIGRP AD?", "90", "110", "120", "1", 0],
+            ["Static route AD?", "1", "0", "90", "110", 0],
+            ["Floating static?", "Higher AD", "Lower AD", "Equal AD", "Default route", 0],
+            ["show ip route code 'C'?", "Connected", "Static", "OSPF", "EIGRP", 0],
+            ["show ip route code 'S'?", "Static", "Connected", "OSPF", "EIGRP", 0],
+            ["show ip route code 'O'?", "OSPF", "Static", "Connected", "EIGRP", 0],
+            ["show ip route code 'D'?", "EIGRP", "OSPF", "Static", "Connected", 0],
+            ["Next-hop in routing table?", "Next router IP", "Destination IP", "Source IP", "Interface", 0],
+            ["Longest prefix match?", "Most specific", "Least specific", "Default route", "Any", 0],
+            ["Administrative distance?", "Trustworthiness", "Metric", "Cost", "Hop count", 0],
+            ["Metric in routing?", "Path cost", "Trust", "Hop count only", "None", 0],
+            ["Gateway of last resort?", "Default route", "Static route", "Connected route", "Local route", 0],
+            ["Subinterface config?", "interface g0/0.10", "vlan 10", "int vlan10", "subint g0/0 10", 0],
+            ["Encapsulation dot1Q command?", "encapsulation dot1q", "dot1q enable", "trunk dot1q", "vlan dot1q", 0],
+            ["Switchport mode trunk?", "Always trunk", "Negotiate", "Access only", "Dynamic", 0],
+            ["DTP mode desirable?", "Initiates trunk", "Passive", "Access only", "Disables DTP", 0],
+            ["VTP modes?", "Server/Client/Transparent", "Active/Passive", "Master/Slave", "Primary/Secondary", 0],
+            ["VTP transparent?", "Doesn't sync", "Syncs VLANs", "Client only", "Server only", 0],
+            ["STP root bridge?", "Lowest BID", "Highest BID", "Lowest MAC", "Highest Priority", 0],
+            ["STP port states?", "Blocking/Listening/Learning/Forwarding", "Up/Down", "Active/Inactive", "On/Off", 0],
+            ["PortFast enables?", "Immediate forwarding", "BPDU filtering", "Root guard", "Loop guard", 0],
+            ["EtherChannel load balance?", "Src/Dst MAC/IP", "Round robin", "Single link", "Broadcast", 0],
+            ["LACP mode active?", "Initiates negotiation", "Passive", "On", "Auto", 0],
+            ["PAgP mode desirable?", "Initiates negotiation", "Passive", "On", "Active", 0],
+            ["Layer 3 EtherChannel?", "no switchport", "switchport", "routed port", "trunk", 0],
+            ["SVI configuration?", "interface vlan", "vlan", "interface", "switchport", 0],
+            ["Router ID in OSPF?", "32-bit number", "IP address", "MAC address", "Any", 0]
         ];
-        while(questionBank.length < 100) {
-            let idx = questionBank.length % seed.length;
-            let entry = seed[idx];
-            let catIdx = (questionBank.length % 5);
-            questionBank.push({
-                category: extraCategories[catIdx],
-                question: entry[0],
-                options: [entry[1], entry[2], entry[3], entry[4]],
-                correct: entry[5]
-            });
-        }
-        // ensure exactly 100
-        questionBank.splice(100);
+        while(routeQs.length < 50) routeQs.push([...routeQs[routeQs.length % 25]]);
+        routeQs.slice(0, 50).forEach(q => add(domains[1], q[0], [q[1], q[2], q[3], q[4]], q[5]));
+
+        // Domain 3: Scaling Networks (Q101-150)
+        const scaleQs = [
+            ["STP purpose?", "Prevent loops", "Load balance", "Increase bandwidth", "Secure ports", 0],
+            ["HSRP?", "First-hop redundancy", "Routing protocol", "Switching", "Security", 0],
+            ["HSRP default priority?", "100", "1", "0", "255", 0],
+            ["HSRP version 2 command?", "standby version 2", "hsrp version 2", "ip hsrp version 2", "router hsrp", 0],
+            ["EtherChannel?", "Combine links", "Prevent loops", "Route packets", "Filter traffic", 0],
+            ["LACP standard?", "802.3ad", "802.1Q", "802.1D", "802.11", 0],
+            ["Max EtherChannel links?", "8", "4", "16", "2", 0],
+            ["PVST+?", "Per-VLAN STP", "Rapid STP", "Multiple STP", "Common STP", 0],
+            ["VTP benefit?", "VLAN sync", "Faster STP", "Load balancing", "Security", 0],
+            ["VTP server mode?", "Create VLANs", "Listen only", "Ignore VTP", "Transparent", 0],
+            ["DTP purpose?", "Negotiate trunk", "Prevent loops", "VLAN sync", "Encryption", 0],
+            ["DTP dynamic desirable?", "Actively trunk", "Passive", "Access only", "Trunk only", 0],
+            ["STP forward delay default?", "15 sec", "20 sec", "2 sec", "30 sec", 0],
+            ["PortFast?", "Fast convergence", "BPDU filter", "Root guard", "Loop guard", 0],
+            ["HSRP v1 multicast?", "224.0.0.2", "224.0.0.5", "224.0.0.9", "224.0.0.102", 0],
+            ["EtherChannel summary command?", "show etherchannel summary", "show port-channel", "show lacp", "show pagp", 0],
+            ["StackWise?", "Combine switches", "Increase ports", "Redundancy", "All", 3],
+            ["Cisco stacking?", "StackWise", "VSS", "vPC", "All", 3],
+            ["MSTP benefit?", "Multiple instances", "Faster", "Less CPU", "All", 3],
+            ["RSTP enable command?", "spanning-tree mode rapid-pvst", "spanning-tree mode rstp", "rstp enable", "rapid-pvst", 0],
+            ["VRRP?", "First-hop redundancy", "Routing protocol", "Switching", "Security", 0],
+            ["GLBP?", "Load balancing", "Redundancy only", "Routing", "Switching", 0],
+            ["HSRP active router?", "Highest priority", "Lowest priority", "Highest IP", "Lowest IP", 0],
+            ["HSRP preempt?", "Take over if better", "Never take over", "Always standby", "None", 0],
+            ["HSRP hello timer default?", "3 sec", "10 sec", "1 sec", "5 sec", 0],
+            ["HSRP hold timer default?", "10 sec", "3 sec", "15 sec", "5 sec", 0],
+            ["VRRP master?", "Highest priority", "Lowest priority", "Highest IP", "Lowest IP", 0],
+            ["GLBP AVF?", "Active Virtual Forwarder", "Active Virtual Router", "Gateway Load Balancer", "None", 0],
+            ["StackWise bandwidth?", "480 Gbps", "100 Gbps", "1 Tbps", "40 Gbps", 0],
+            ["VSS?", "Virtual Switching System", "Virtual StackWise", "Virtual Switch Stack", "None", 0],
+            ["vPC?", "Virtual Port Channel", "Virtual Private Cloud", "Virtual Path Control", "None", 0],
+            ["MSTP regions?", "Same config", "Different config", "Any config", "No config", 0],
+            ["MSTP instances max?", "16", "8", "32", "64", 0],
+            ["Spanning-tree port type edge?", "PortFast", "UplinkFast", "BackboneFast", "None", 0],
+            ["Spanning-tree port type network?", "Point-to-point", "Shared", "Edge", "Trunk", 0],
+            ["BPDU Guard action?", "Err-disable", "Shutdown", "Block", "Log only", 0],
+            ["BPDU Filter?", "Stop BPDUs", "Disable port", "Enable PortFast", "Root guard", 0],
+            ["Root Guard?", "Prevent root change", "Disable port", "Enable PortFast", "BPDU filter", 0],
+            ["Loop Guard?", "Prevent loops", "Disable port", "Enable PortFast", "Root guard", 0],
+            ["UDLD?", "Unidirectional Link Detection", "Universal Link Detection", "Unified Link Detection", "None", 0],
+            ["Err-disable recovery?", "Auto after timer", "Manual only", "Never", "Reboot", 0],
+            ["Err-disable causes?", "BPDU Guard", "Port security", "All", "None", 2],
+            ["show errdisable recovery?", "Shows timer", "Shows causes", "Recovers ports", "None", 0],
+            ["Storm control?", "Limit broadcast", "Limit unicast", "Limit multicast", "All", 3],
+            ["Storm control action?", "Shutdown", "Trap", "Both", "None", 2],
+            ["SPAN?", "Port mirroring", "VLAN mirroring", "Both", "None", 2],
+            ["RSPAN?", "Remote SPAN", "Rapid SPAN", "Redundant SPAN", "None", 0],
+            ["ERSPAN?", "Encapsulated RSPAN", "Enhanced RSPAN", "Extended RSPAN", "None", 0],
+            ["NetFlow?", "Traffic analysis", "Packet capture", "QoS", "Security", 0],
+            ["sFlow?", "Sampled NetFlow", "Secure Flow", "Simple Flow", "None", 0]
+        ];
+        while(scaleQs.length < 50) scaleQs.push([...scaleQs[scaleQs.length % 30]]);
+        scaleQs.slice(0, 50).forEach(q => add(domains[2], q[0], [q[1], q[2], q[3], q[4]], q[5]));
+
+        // Domain 4: Security Fundamentals (Q151-200)
+        const secQs = [
+            ["Enable secret command?", "enable secret", "enable password", "secret enable", "password enable", 0],
+            ["Port security violation default?", "Shutdown", "Restrict", "Protect", "Shutdown VLAN", 0],
+            ["Port security enable?", "switchport port-security", "port-security enable", "secure-port", "mac secure", 0],
+            ["DHCP Snooping purpose?", "Prevent rogue DHCP", "Speed up DHCP", "Monitor DHCP", "Allocate IPs", 0],
+            ["DHCP Snooping command?", "ip dhcp snooping", "dhcp snooping enable", "ip dhcp secure", "dhcp guard", 0],
+            ["DAI purpose?", "Prevent ARP spoofing", "Inspect packets", "ARP cache", "MAC learning", 0],
+            ["DAI enable VLAN?", "ip arp inspection vlan", "arp inspection", "dai enable", "inspect arp", 0],
+            ["Strongest WPA?", "WPA3", "WPA2", "WPA", "WEP", 0],
+            ["WPA2 encryption?", "AES", "TKIP", "DES", "3DES", 0],
+            ["802.1X purpose?", "Port-based auth", "Encryption", "VLAN tagging", "QoS", 0],
+            ["802.1X protocol?", "EAP", "RADIUS", "TACACS+", "All", 3],
+            ["SSH default port?", "22", "23", "443", "80", 0],
+            ["SSH key generation?", "crypto key generate rsa", "ssh key gen", "ip ssh rsa", "key generate", 0],
+            ["ACL purpose?", "Filter traffic", "Route packets", "Switch frames", "Encrypt data", 0],
+            ["Standard ACL filters?", "Source IP", "Dest IP", "Port", "Protocol", 0],
+            ["Standard ACL numbers?", "1-99", "100-199", "200-299", "1000-1099", 0],
+            ["Extended ACL numbers?", "100-199", "1-99", "200-299", "1000-1099", 0],
+            ["ACL entry command?", "access-list", "ip access-list", "acl", "permit", 0],
+            ["ACL implicit deny?", "Yes", "No", "Only at end", "Only if configured", 0],
+            ["TACACS+ vs RADIUS?", "TACACS+ encrypts all", "RADIUS encrypts all", "Both same", "Neither", 0],
+            ["RADIUS default port?", "1812", "49", "1645", "1813", 0],
+            ["TACACS+ default port?", "49", "1812", "1645", "1813", 0],
+            ["AAA stands for?", "Authentication Authorization Accounting", "Access Authorization Accounting", "Authentication Access Accounting", "None", 0],
+            ["AAA authentication login?", "aaa authentication login", "login authentication aaa", "aaa login", "authentication aaa", 0],
+            ["Line console password?", "password", "enable password", "login local", "secret", 0],
+            ["Line vty password?", "password", "enable secret", "username", "crypto key", 0],
+            ["Login local?", "Use local database", "Use AAA", "No password", "Enable only", 0],
+            ["Username secret command?", "username ... secret", "username ... password", "user ... secret", "login ... secret", 0],
+            ["Privilege levels range?", "0-15", "1-5", "0-10", "1-10", 0],
+            ["Enable secret level?", "enable secret level", "enable level", "privilege level", "user level", 0],
+            ["Role-based CLI?", "Parser views", "Privilege levels", "AAA", "TACACS+", 0],
+            ["Super view?", "Combine views", "Single view", "Root view", "None", 0],
+            ["SSH version 2?", "More secure", "Less secure", "Same as v1", "Not supported", 0],
+            ["Transport input ssh?", "Allow SSH only", "Allow Telnet only", "Allow both", "Block both", 0],
+            ["IP SSH version 2 command?", "ip ssh version 2", "ssh version 2", "ip ssh 2", "ssh 2", 0],
+            ["NTP authentication?", "Secure time", "Encrypt time", "Faster sync", "None", 0],
+            ["NTP symmetric key?", "MD5", "SHA", "AES", "DES", 0],
+            ["SNMPv3 feature?", "Encryption", "Community strings", "No auth", "None", 0],
+            ["SNMP community string?", "Password", "Username", "Group", "None", 0],
+            ["Syslog levels?", "0-7", "1-5", "0-5", "1-7", 0],
+            ["Syslog level 0?", "Emergency", "Alert", "Critical", "Error", 0],
+            ["Syslog level 7?", "Debugging", "Informational", "Notice", "Warning", 0],
+            ["Logging buffered?", "Store in RAM", "Send to server", "Console only", "None", 0],
+            ["Logging console?", "Show on console", "Store in RAM", "Send to server", "None", 0],
+            ["Logging synchronous?", "Prevent interruption", "Sync time", "Encrypt logs", "None", 0],
+            ["CDP runs at?", "Layer 2", "Layer 3", "Layer 4", "Layer 7", 0],
+            ["LLDP standard?", "802.1AB", "802.1Q", "802.1D", "802.11", 0],
+            ["CDP vs LLDP?", "Cisco vs Open", "Same", "CDP only", "LLDP only", 0],
+            ["Port security max MAC?", "1 default", "132", "10", "None", 0],
+            ["Port security sticky?", "Learn dynamically", "Static only", "Dynamic only", "None", 0]
+        ];
+        while(secQs.length < 50) secQs.push([...secQs[secQs.length % 30]]);
+        secQs.slice(0, 50).forEach(q => add(domains[3], q[0], [q[1], q[2], q[3], q[4]], q[5]));
+
+        // Domain 5: Connecting Networks (Q201-250)
+        const connQs = [
+            ["WAN label technology?", "MPLS", "Frame Relay", "ATM", "ISDN", 0],
+            ["Serial default encapsulation?", "HDLC", "PPP", "Frame Relay", "ATM", 0],
+            ["PPP authentication?", "PAP", "CHAP", "EAP", "All", 3],
+            ["NAT purpose?", "Translate IPs", "Encrypt data", "Filter traffic", "Route packets", 0],
+            ["Static NAT?", "1:1 mapping", "Many:1", "1:Many", "Dynamic pool", 0],
+            ["PAT also called?", "NAT Overload", "Static NAT", "Dynamic NAT", "Port NAT", 0],
+            ["NAT overload command?", "overload", "nat overload", "ip nat overload", "nat pool", 0],
+            ["VPN purpose?", "Secure tunnel", "Speed up", "Load balance", "VLAN extension", 0],
+            ["Site-to-site VPN?", "IPsec", "SSL", "PPTP", "L2TP", 0],
+            ["GRE provides?", "Encapsulation", "Encryption", "Authentication", "Compression", 0],
+            ["GRE tunnel command?", "interface tunnel", "tunnel mode gre", "ip tunnel", "gre interface", 0],
+            ["BGP purpose?", "Inter-domain routing", "LAN switching", "VLAN trunking", "STP", 0],
+            ["BGP path selection first?", "Weight", "Local Pref", "AS Path", "MED", 0],
+            ["BGP default port?", "179", "80", "443", "520", 0],
+            ["Show BGP neighbors?", "show ip bgp summary", "show bgp neighbor", "show ip bgp", "show bgp", 0],
+            ["eBGP used for?", "Between AS", "Within AS", "IGP", "MPLS", 0],
+            ["QoS marking?", "DSCP", "IP Precedence", "CoS", "All", 3],
+            ["QoS purpose?", "Prioritize traffic", "Block traffic", "Route traffic", "Switch traffic", 0],
+            ["Show interface bandwidth?", "show interfaces", "show bandwidth", "show speed", "show rate", 0],
+            ["Serial bandwidth default?", "1544 Kbps", "100 Mbps", "10 Mbps", "1 Gbps", 0],
+            ["PPP LCP?", "Link establishment", "Authentication", "Network layer", "Compression", 0],
+            ["PPP NCP?", "Network layer", "Link establishment", "Authentication", "Compression", 0],
+            ["CHAP challenge?", "3-way handshake", "2-way", "4-way", "1-way", 0],
+            ["MLPPP?", "Multilink PPP", "Multiple PPP", "Multi PPP", "None", 0],
+            ["PPPoE?", "PPP over Ethernet", "PPP over E1", "PPP over E3", "None", 0],
+            ["DMVPN?", "Dynamic Multipoint VPN", "Dynamic Mesh VPN", "Direct Multipoint VPN", "None", 0],
+            ["DMVPN phase?", "Hub-spoke", "Spoke-spoke", "Both", "None", 2],
+            ["IPsec protocol?", "ESP", "AH", "Both", "None", 2],
+            ["IPsec mode?", "Tunnel", "Transport", "Both", "None", 2],
+            ["IKE purpose?", "Key exchange", "Encryption", "Authentication", "All", 3],
+            ["IKE phase 1?", "ISAKMP SA", "IPsec SA", "Key refresh", "None", 0],
+            ["IKE phase 2?", "IPsec SA", "ISAKMP SA", "Key refresh", "None", 0],
+            ["NAT inside source?", "Translate source", "Translate dest", "Both", "None", 0],
+            ["NAT outside source?", "Translate dest", "Translate source", "Both", "None", 0],
+            ["NAT pool command?", "ip nat pool", "nat pool", "ip pool nat", "pool nat", 0],
+            ["NAT ACL match?", "Permit", "Deny", "Any", "None", 0],
+            ["Show NAT translations?", "show ip nat translations", "show nat", "show translations", "show ip nat", 0],
+            ["Clear NAT translations?", "clear ip nat translation *", "clear nat", "clear translation", "reset nat", 0],
+            ["BGP neighbor command?", "neighbor ... remote-as", "bgp neighbor", "ip bgp neighbor", "router bgp neighbor", 0],
+            ["BGP network command?", "network ... mask", "advertise", "redistribute", "default-information", 0],
+            ["BGP synchronization?", "IGP must have route", "Disabled by default", "Both", "None", 2],
+            ["BGP auto-summary?", "Disabled by default", "Enabled by default", "Not supported", "None", 0],
+            ["BGP next-hop-self?", "Change next-hop", "Keep next-hop", "Use peer", "None", 0],
+            ["eBGP multihop?", ">1 hop away", "Direct only", "2 hops max", "None", 0],
+            ["BGP local preference?", "Higher is better", "Lower is better", "Equal", "None", 0],
+            ["BGP MED?", "Lower is better", "Higher is better", "Equal", "None", 0],
+            ["BGP community?", "Tag routes", "Filter routes", "Both", "None", 2],
+            ["QoS trust boundary?", "Where marking happens", "Endpoint", "Core", "Edge", 0],
+            ["QoS policing?", "Drop excess", "Buffer excess", "Mark only", "None", 0],
+            ["QoS shaping?", "Buffer excess", "Drop excess", "Mark only", "None", 0]
+        ];
+        while(connQs.length < 50) connQs.push([...connQs[connQs.length % 30]]);
+        connQs.slice(0, 50).forEach(q => add(domains[4], q[0], [q[1], q[2], q[3], q[4]], q[5]));
+
+        // Domain 6: Network Automation (Q251-300)
+        const autoQs = [
+            ["Data serialization format?", "JSON", "XML", "YAML", "All", 3],
+            ["API stands for?", "Application Programming Interface", "Automated Protocol Interface", "Application Protocol Integration", "None", 0],
+            ["HTTP GET?", "Retrieve data", "Create data", "Update data", "Delete data", 0],
+            ["HTTP POST?", "Create data", "Retrieve data", "Update data", "Delete data", 0],
+            ["HTTP PUT?", "Update data", "Create data", "Retrieve data", "Delete data", 0],
+            ["HTTP DELETE?", "Delete data", "Create data", "Retrieve data", "Update data", 0],
+            ["REST?", "Architectural style", "Protocol", "Language", "Database", 0],
+            ["REST uses?", "HTTP/HTTPS", "FTP", "SSH", "Telnet", 0],
+            ["RESTful API?", "Stateless", "Stateful", "Session-based", "None", 0],
+            ["JSON format?", "Key-value pairs", "Tables", "Binary", "XML only", 0],
+            ["XML vs JSON?", "JSON lighter", "XML lighter", "Same", "None", 0],
+            ["YAML used in?", "Ansible", "Puppet", "Chef", "All", 0],
+            ["NETCONF?", "Network Config Protocol", "Network Control", "Net Configuration", "None", 0],
+            ["NETCONF port?", "830", "22", "443", "80", 0],
+            ["YANG?", "Data modeling", "Programming", "Protocol", "API", 0],
+            ["Configuration management?", "Ansible", "Puppet", "Chef", "All", 3],
+            ["Ansible language?", "YAML", "JSON", "XML", "Python only", 0],
+            ["Ansible playbook extension?", ".yml", ".json", ".xml", ".py", 0],
+            ["Playbook contains?", "Tasks", "Single command", "Inventory", "Module", 0],
+            ["Ansible inventory?", "List of hosts", "Playbook", "Task", "Module", 0],
+            ["Ansible module?", "Code unit", "Playbook", "Inventory", "Task", 0],
+            ["Ansible ad-hoc?", "Single command", "Playbook", "Role", "Collection", 0],
+            ["Ansible Galaxy?", "Share roles", "Playbooks", "Modules", "Inventory", 0],
+            ["Cisco DNA Center?", "Intent-based networking", "Routing", "Switching", "Firewall", 0],
+            ["DNA Center assurance?", "Analytics", "Configuration", "Provisioning", "None", 0],
+            ["DNA Center southbound?", "NETCONF/RESTCONF", "REST API", "CLI", "SNMP", 0],
+            ["DNA Center northbound?", "REST API", "NETCONF", "CLI", "SNMP", 0],
+            ["Telemetry streaming?", "gRPC", "SNMP", "Syslog", "NetFlow", 0],
+            ["gRPC uses?", "HTTP/2", "HTTP/1.1", "FTP", "SSH", 0],
+            ["Automation benefit?", "Consistency", "Speed", "Reduced errors", "All", 3],
+            ["Python Netmiko?", "SSH automation", "REST API", "NETCONF", "SNMP", 0],
+            ["Python NAPALM?", "Multi-vendor", "Cisco only", "Juniper only", "None", 0],
+            ["Python Nornir?", "Framework", "Library", "Module", "None", 0],
+            ["CI/CD stands for?", "Continuous Integration/Deployment", "Code Integration", "Continuous Improvement", "None", 0],
+            ["Git purpose?", "Version control", "Automation", "Monitoring", "Testing", 0],
+            ["Git clone command?", "git clone", "git pull", "git fetch", "git copy", 0],
+            ["Git branch?", "Parallel development", "Main only", "Tag", "None", 0],
+            ["Git merge?", "Combine branches", "Delete branch", "Create branch", "None", 0],
+            ["GitHub?", "Hosting service", "Git client", "Editor", "None", 0],
+            ["GitLab CI?", "Pipeline automation", "Code review", "Hosting", "None", 0],
+            ["Jenkins?", "Automation server", "Version control", "Container", "None", 0],
+            ["Docker?", "Containerization", "Virtualization", "Orchestration", "None", 0],
+            ["Kubernetes?", "Orchestration", "Containerization", "Virtualization", "None", 0],
+            ["Terraform?", "Infrastructure as Code", "Config management", "CI/CD", "Monitoring", 0],
+            ["Terraform state?", "Track resources", "Logs", "Config", "None", 0],
+            ["Terraform provider?", "Cloud/Platform API", "Config", "State", "None", 0],
+            ["Ansible Tower?", "GUI/API for Ansible", "Playbook", "Module", "Inventory", 0],
+            ["Cisco DevNet?", "Developer resources", "Certification", "Hardware", "None", 0],
+            ["Postman tool?", "API testing", "Code editor", "Version control", "CI/CD", 0],
+            ["cURL command?", "HTTP requests", "API testing", "Both", "None", 2]
+        ];
+        while(autoQs.length < 50) autoQs.push([...autoQs[autoQs.length % 30]]);
+        autoQs.slice(0, 50).forEach(q => add(domains[5], q[0], [q[1], q[2], q[3], q[4]], q[5]));
+
+        // Ensure exactly 300 questions
+        if (questionBank.length > 300) questionBank.splice(300);
+        const totalQuestions = questionBank.length;
 
         // ----- APP STATE -----
         let currentIndex = 0;
-        let userAnswers = new Array(100).fill(null);    // selected option index
-        let answerStatus = new Array(100).fill(false);   // true if correct (after check)
-        let attempted = new Array(100).fill(false);      // whether user has checked this question
+        let userAnswers = new Array(totalQuestions).fill(null);
+        let answerStatus = new Array(totalQuestions).fill(false);
+        let attempted = new Array(totalQuestions).fill(false);
 
         // DOM elements
         const categoryTag = document.getElementById('categoryTag');
+        const domainBadge = document.getElementById('domainBadge');
         const questionText = document.getElementById('questionText');
         const optionsDiv = document.getElementById('optionsContainer');
         const feedbackDiv = document.getElementById('feedbackArea');
@@ -386,21 +670,42 @@
         const progressFill = document.getElementById('progress-fill');
         const qCounterLabel = document.getElementById('qCounterLabel');
         const attemptStatus = document.getElementById('attemptStatus');
+        const domainStatsContainer = document.getElementById('domainStatsContainer');
 
-        function computeScore() {
-            return answerStatus.filter(v => v === true).length;
-        }
+        function getDomainIndex(cat) { return domains.indexOf(cat); }
+
+        function computeScore() { return answerStatus.filter(v => v).length; }
 
         function updateProgressAndScore() {
             const score = computeScore();
-            scoreDisplay.textContent = `${score}/100`;
-            const percent = (score / 100) * 100;
+            scoreDisplay.textContent = `${score}/${totalQuestions}`;
+            const percent = (score / totalQuestions) * 100;
             progressFill.style.width = percent + '%';
+            
+            // Update domain stats
+            const domainScores = domains.map(d => ({ total: 0, correct: 0 }));
+            questionBank.forEach((q, i) => {
+                const dIdx = domains.indexOf(q.category);
+                if (dIdx >= 0) {
+                    domainScores[dIdx].total++;
+                    if (answerStatus[i]) domainScores[dIdx].correct++;
+                }
+            });
+            
+            let statsHtml = '';
+            const icons = ['🌐', '🔀', '📈', '🛡️', '🔗', '🤖'];
+            domains.forEach((d, idx) => {
+                const ds = domainScores[idx];
+                statsHtml += `<div class="stat-item">${icons[idx]} ${d.split(' ')[0]}: ${ds.correct}/${ds.total}</div>`;
+            });
+            domainStatsContainer.innerHTML = statsHtml;
         }
 
         function renderQuestion(index) {
             const q = questionBank[index];
             categoryTag.textContent = q.category;
+            const domainIdx = getDomainIndex(q.category);
+            domainBadge.textContent = `Domain ${domainIdx+1}/6`;
             questionText.textContent = `Q${index+1}. ${q.question}`;
             
             let html = '';
@@ -410,16 +715,12 @@
             });
             optionsDiv.innerHTML = html;
 
-            // attach radio listeners
             document.querySelectorAll('input[name="qOption"]').forEach(radio => {
                 radio.addEventListener('change', (e) => {
                     userAnswers[index] = parseInt(e.target.value);
-                    // if previously attempted and correct status existed, clear attempt flag? We'll keep status, but they may re-check.
-                    // We won't auto reset attempt; check button will update.
                 });
             });
 
-            // feedback display
             const isAttempted = attempted[index];
             const isCorrect = answerStatus[index];
             if (isAttempted) {
@@ -427,8 +728,7 @@
                     feedbackDiv.textContent = '✅ Correct! Good job.';
                     feedbackDiv.className = 'correct-feedback';
                 } else {
-                    const correctOpt = q.options[q.correct];
-                    feedbackDiv.textContent = `❌ Incorrect. The correct answer is: ${correctOpt}`;
+                    feedbackDiv.textContent = `❌ Incorrect. The correct answer is: ${q.options[q.correct]}`;
                     feedbackDiv.className = 'correct-feedback incorrect-feedback';
                 }
                 attemptStatus.textContent = `Status: ${isCorrect ? 'Correct' : 'Incorrect'}`;
@@ -438,9 +738,9 @@
                 attemptStatus.textContent = 'Not attempted yet';
             }
 
-            qCounterLabel.textContent = `Q${index+1} / 100`;
+            qCounterLabel.textContent = `Q${index+1} / ${totalQuestions}`;
             prevBtn.disabled = (index === 0);
-            nextBtn.disabled = (index === 99);
+            nextBtn.disabled = (index === totalQuestions - 1);
         }
 
         function checkCurrentAnswer() {
@@ -450,67 +750,53 @@
                 alert('Please select an option first.');
                 return;
             }
-            const isCorrect = (selected === q.correct);
-            answerStatus[currentIndex] = isCorrect;
+            answerStatus[currentIndex] = (selected === q.correct);
             attempted[currentIndex] = true;
             updateProgressAndScore();
             renderQuestion(currentIndex);
         }
 
         function resetAll() {
-            if(confirm('Reset all progress? Your answers will be cleared.')) {
-                userAnswers = new Array(100).fill(null);
-                answerStatus = new Array(100).fill(false);
-                attempted = new Array(100).fill(false);
+            if(confirm('Reset all 300 questions? Your progress will be cleared.')) {
+                userAnswers = new Array(totalQuestions).fill(null);
+                answerStatus = new Array(totalQuestions).fill(false);
+                attempted = new Array(totalQuestions).fill(false);
                 currentIndex = 0;
                 updateProgressAndScore();
                 renderQuestion(0);
             }
         }
 
-        // Jump via TOC
+        // TOC Jump
         document.querySelectorAll('.toc-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const start = parseInt(e.target.dataset.start, 10);
-                if(!isNaN(start) && start>=0 && start<100) {
+                if(!isNaN(start) && start >= 0 && start < totalQuestions) {
                     currentIndex = start;
                     renderQuestion(currentIndex);
                 }
+                document.querySelectorAll('.toc-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
             });
         });
 
-        // Event listeners
         prevBtn.addEventListener('click', ()=>{
-            if(currentIndex > 0) {
-                currentIndex--;
-                renderQuestion(currentIndex);
-            }
+            if(currentIndex > 0) { currentIndex--; renderQuestion(currentIndex); }
         });
         nextBtn.addEventListener('click', ()=>{
-            if(currentIndex < 99) {
-                currentIndex++;
-                renderQuestion(currentIndex);
-            }
+            if(currentIndex < totalQuestions - 1) { currentIndex++; renderQuestion(currentIndex); }
         });
         checkBtn.addEventListener('click', checkCurrentAnswer);
         resetBtn.addEventListener('click', resetAll);
 
-        // Init
-        renderQuestion(0);
-        updateProgressAndScore();
-
-        // Keyboard navigation optional
         window.addEventListener('keydown', (e)=>{
-            if(e.key === 'ArrowLeft' && !prevBtn.disabled) {
-                prevBtn.click();
-            } else if(e.key === 'ArrowRight' && !nextBtn.disabled) {
-                nextBtn.click();
-            }
+            if(e.key === 'ArrowLeft' && !prevBtn.disabled) prevBtn.click();
+            else if(e.key === 'ArrowRight' && !nextBtn.disabled) nextBtn.click();
         });
 
-        // Add extra indicator: mark active toc button roughly
-        // (optional)
-
+        // Initialize
+        renderQuestion(0);
+        updateProgressAndScore();
     })();
 </script>
 </body>
